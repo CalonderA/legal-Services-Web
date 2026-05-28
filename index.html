@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЮрАктив — Exclusive Legal Defense</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0D0D0D',
+                        accent: '#C5A367', // Warm Gold/Bronze
+                        'gold-light': '#E6D5B8',
+                        'bg-warm': '#F4EFE6',
+                        'navy-dark': '#121212',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        display: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0D0D0D;
+            color: #ffffff;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        section {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Premium Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 2rem 3rem;
+        }
+
+        header.scrolled {
+            padding: 1rem 3rem;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(197, 163, 103, 0.1);
+        }
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: #0D0D0D;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+            transform: translateY(-100%);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #mobile-menu.active {
+            transform: translateY(0);
+        }
+
+        .mobile-nav-link {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: capitalize;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            color: #C5A367;
+        }
+
+        .burger-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 300;
+            cursor: pointer;
+        }
+
+        .burger-line {
+            width: 30px;
+            height: 2px;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            #loader .loader-text {
+                font-size: 2.5rem;
+                padding: 0 1rem;
+                text-align: center;
+            }
+            .loader-bar-container {
+                width: 70% !important;
+            }
+            header {
+                padding: 1rem;
+            }
+            header.scrolled {
+                padding: 0.75rem 1rem;
+            }
+            .burger-btn {
+                display: flex;
+            }
+            .hero-title {
+                font-size: clamp(1.8rem, 8.5vw, 2.2rem);
+                line-height: 1.1;
+                text-align: center;
+            }
+            h2 {
+                font-size: clamp(1.5rem, 6.5vw, 1.9rem) !important;
+                line-height: 1.1 !important;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                hyphens: manual;
+                letter-spacing: -0.01em;
+            }
+            .hero-tag {
+                justify-content: center;
+                text-align: center;
+                font-size: 0.6rem;
+                line-height: 1.4;
+            }
+            .hero-tag::before {
+                display: none;
+            }
+            #about .flex-col {
+                align-items: center;
+            }
+            section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                text-align: center;
+            }
+            .section-tag {
+                justify-content: center;
+            }
+            .service-card {
+                aspect-ratio: auto;
+                min-height: auto;
+                padding: 2.5rem 2rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .service-card h3 {
+                font-size: clamp(1.4rem, 6vw, 1.7rem);
+                margin-top: 1.5rem;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+            }
+            .service-card p {
+                opacity: 1;
+                transform: none;
+                margin-top: 1rem;
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.7);
+            }
+            p {
+                font-size: 0.9rem !important;
+                color: rgba(255, 255, 255, 0.6) !important;
+            }
+            .service-card .h-px {
+                width: 60px;
+                margin: 0 auto;
+                background: #C5A367;
+            }
+            .service-number {
+                display: none;
+            }
+            .service-icon-wrapper {
+                margin: 0 auto;
+            }
+            br {
+                display: none;
+            }
+            .hero-title br {
+                display: block; /* Keep line breaks in hero for better look */
+            }
+            h2 br {
+                display: none;
+            }
+            .grid {
+                gap: 2rem;
+            }
+            #contact .grid {
+                gap: 4rem;
+            }
+        }
+
+        .nav-link {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #C5A367;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn-outline-gold {
+            border: 1px solid rgba(197, 163, 103, 0.3);
+            padding: 0.75rem 2rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #ffffff;
+            transition: all 0.4s ease;
+        }
+
+        .btn-outline-gold:hover {
+            background: #C5A367;
+            color: #0D0D0D;
+            border-color: #C5A367;
+            box-shadow: 0 0 25px rgba(197, 163, 103, 0.2);
+        }
+
+        /* Premium Form Styles */
+        .premium-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            border: none;
+            border-bottom: 1px solid rgba(197, 163, 103, 0.2);
+            padding: 1rem 0.5rem;
+            color: #ffffff;
+            font-size: 0.95rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            border-radius: 0;
+        }
+
+        .premium-input:focus {
+            border-bottom-color: #C5A367;
+            background: rgba(197, 163, 103, 0.08);
+            box-shadow: inset 0 -2px 0 #C5A367;
+        }
+
+        .premium-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .premium-input:focus::placeholder {
+            opacity: 0.5;
+            transform: translateX(10px);
+        }
+
+        .btn-premium {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: #C5A367;
+            color: #0D0D0D;
+            padding: 1.25rem 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.75rem;
+            transition: all 0.5s ease;
+        }
+
+        .btn-premium:hover {
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(197, 163, 103, 0.3);
+        }
+
+        /* Hero Typography */
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .gold-gradient-text {
+            color: #C5A367;
+            font-style: italic;
+        }
+
+        .hero-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: #C5A367;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: #C5A367;
+        }
+
+        /* Glass Cards */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 4px;
+            transition: all 0.5s ease;
+        }
+
+        .glass-panel:hover {
+            background: rgba(197, 163, 103, 0.03);
+            border-color: rgba(197, 163, 103, 0.2);
+        }
+
+        /* Scroll Hint */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0.3;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, #C5A367, transparent);
+        }
+        /* Service Card Enhancements */
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(197, 163, 103, 0.1);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(197, 163, 103, 0.15) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(197, 163, 103, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(197, 163, 103, 0.1);
+        }
+
+        .service-icon-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-number {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: rgba(197, 163, 103, 0.03);
+            transition: all 0.6s ease;
+        }
+
+        .service-card:hover .service-number {
+            color: rgba(197, 163, 103, 0.08);
+            transform: scale(1.1);
+        }
+
+        /* Noise & Grain Overlay */
+        .grain-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9998;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+    <!-- Loader -->
+    <div id="loader" class="fixed inset-0 bg-primary z-[10000] flex flex-col items-center justify-center">
+        <div class="loader-text overflow-hidden font-serif text-6xl font-bold text-white">
+            <span class="inline-block translate-y-full">ЛИЧНЫЙ ЮРИСТ</span>
+        </div>
+        <div class="w-48 h-px bg-white/10 mt-8 relative loader-bar-container">
+            <div class="loader-bar absolute inset-0 bg-accent w-0"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header id="main-header">
+        <div class="flex justify-between items-center max-w-7xl mx-auto w-full">
+            <a href="#" class="flex items-center space-x-4 group">
+                <div class="w-10 h-10 border border-accent/40 flex items-center justify-center group-hover:bg-accent transition-all duration-500">
+                    <i data-lucide="shield" class="text-accent group-hover:text-primary w-5 h-5"></i>
+                </div>
+                <span class="text-xl font-serif font-bold tracking-[0.2em] text-white uppercase">Личный юрист</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-12">
+                <a href="#about" class="nav-link">главная</a>
+                <a href="#news" class="nav-link">новости</a>
+                <a href="#cases" class="nav-link">кейсы</a>
+                <a href="#services" class="nav-link">услуги</a>
+                <a href="#contact" class="nav-link">контакты</a>
+            </nav>
+
+            <button class="hidden md:block btn-outline-gold" onclick="document.getElementById('contact').scrollIntoView()">
+                Оставить заявку
+            </button>
+
+            <!-- Burger Button -->
+            <div class="burger-btn" id="burger-toggle">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu">
+        <a href="#about" class="mobile-nav-link">главная</a>
+        <a href="#news" class="mobile-nav-link">новости</a>
+        <a href="#cases" class="mobile-nav-link">кейсы</a>
+        <a href="#services" class="mobile-nav-link">услуги</a>
+        <a href="#contact" class="mobile-nav-link">контакты</a>
+        <button class="btn-premium mt-8" onclick="toggleMobileMenu(); document.getElementById('contact').scrollIntoView()">
+            Оставить заявку
+        </button>
+    </div>
+
+    <main id="content">
+        <!-- Hero Section -->
+        <section id="about" class="min-h-screen flex items-center px-12 relative overflow-hidden">
+            <div class="absolute inset-0 z-0 opacity-20">
+                <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200" alt="Legal background" class="w-full h-full object-cover">
+            </div>
+            <div class="container mx-auto relative">
+                <div class="max-w-5xl relative z-20">
+                    <div class="hero-tag">Равенство прав не в том, что все ими пользуются, а в том, что они всем предоставлены.</div>
+                    <h1 class="hero-title mb-12">
+                        <span class="text-white">Мы делаем правосудие</span> <br>
+                        <span class="gold-gradient-text italic">доступным</span> <br>
+                        <span class="text-white">и понятным</span>
+                    </h1>
+                    
+                    <div class="flex flex-col md:flex-row items-start md:items-center gap-12 mt-16 reveal-item">
+                        <button onclick="document.getElementById('contact').scrollIntoView()" class="bg-[#C5A367] text-[#0D0D0D] px-12 py-5 text-[0.75rem] font-bold uppercase tracking-widest hover:bg-[#D4B478] transition-all duration-500">
+                            Бесплатная консультация
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <span class="text-[0.6rem] uppercase tracking-[0.5em] text-white/40">Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- Expertise Area (About Company) -->
+        <section id="about-details" class="py-32 px-12 relative z-10">
+            <div class="container mx-auto">
+                <div class="grid lg:grid-cols-2 gap-24 items-center">
+                    <div class="relative reveal-item">
+                        <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=800" alt="Legal Team" class="rounded-[40px] shadow-2xl">
+                        <div class="absolute -bottom-10 -right-10 glass-panel p-10 rounded-3xl hidden md:block">
+                            <div class="text-4xl font-serif font-bold text-white mb-2">12+</div>
+                            <div class="text-[10px] uppercase tracking-widest text-accent">Лет опыта в праве</div>
+                        </div>
+                    </div>
+                    <div class="reveal-item">
+                        <div class="section-tag">О компании</div>
+                        <h2 class="text-5xl md:text-7xl font-serif font-bold mb-10 leading-tight">Мы делаем правосудие <br><span class="italic gold-gradient-text">доступным</span></h2>
+                        <p class="text-gray-400 text-lg mb-8 font-light leading-relaxed">
+                            Мы делаем правосудие доступным и понятным. Более 12 лет опыта, более 180 успешно выигранных дел (уголовные, гражданские, арбитражные). Это не цифры, а судьбы.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                            <div class="flex items-center gap-4">
+                                <div class="w-2 h-2 rounded-full bg-accent"></div>
+                                <span class="text-sm text-gray-300">Качество работы</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-2 h-2 rounded-full bg-accent"></div>
+                                <span class="text-sm text-gray-300">Профессионализм</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-2 h-2 rounded-full bg-accent"></div>
+                                <span class="text-sm text-gray-300">Гарантированная помощь</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-2 h-2 rounded-full bg-accent"></div>
+                                <span class="text-sm text-gray-300">Конфиденциальность</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-2 h-2 rounded-full bg-accent"></div>
+                                <span class="text-sm text-gray-300">Приемлемые цены</span>
+                            </div>
+                        </div>
+
+                        <button onclick="document.getElementById('contact').scrollIntoView()" class="btn-premium">
+                            <span>Записаться на консультацию</span>
+                            <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="py-32 px-12 border-y border-white/5">
+            <div class="container mx-auto text-center">
+                <div class="section-tag justify-center">Новости</div>
+                <h2 class="text-5xl md:text-7xl font-serif font-bold mb-8">Последние изменения <br><span class="italic gold-gradient-text">законодательства</span></h2>
+                <p class="text-gray-500 font-light max-w-2xl mx-auto">
+                    Раздел находится в разработке. Здесь будут публиковаться актуальные новости и изменения в законодательстве.
+                </p>
+            </div>
+        </section>
+
+        <!-- Cases Section -->
+        <section id="cases" class="py-32 px-12 border-b border-white/5">
+            <div class="container mx-auto text-center">
+                <div class="section-tag justify-center">Кейсы</div>
+                <h2 class="text-5xl md:text-7xl font-serif font-bold mb-8">Примеры из юридической <br><span class="italic gold-gradient-text">практики</span></h2>
+                <p class="text-gray-500 font-light max-w-2xl mx-auto">
+                    Раздел находится в разработке. Здесь мы будем делиться успешными примерами решения сложных юридических задач.
+                </p>
+            </div>
+        </section>
+
+        <!-- Services Section (Cubes) -->
+        <section id="services" class="py-32 px-12 bg-primary relative z-10 overflow-hidden">
+            <div class="container mx-auto">
+                <div class="text-center mb-24 reveal-item">
+                    <div class="section-tag justify-center">Сферы компетенции</div>
+                    <h2 class="text-6xl md:text-8xl font-serif font-bold leading-tight text-white">Направления <br><span class="italic gold-gradient-text">практики</span></h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="service-card p-12 aspect-square flex flex-col justify-between group cursor-pointer reveal-item">
+                        <div class="service-number">01</div>
+                        <div class="service-icon-wrapper w-16 h-16 border border-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500">
+                            <i data-lucide="scale" class="text-accent group-hover:text-primary w-8 h-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-serif font-bold mb-4 text-white group-hover:text-accent transition-colors duration-500">Гражданское <br>право</h3>
+                            <div class="h-px w-0 group-hover:w-full bg-accent transition-all duration-700"></div>
+                            <p class="text-gray-400 text-sm mt-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 font-light leading-relaxed">
+                                Защита прав собственности, взыскание долгов, споры по договорам и возмещение ущерба. Мы обеспечим вашу юридическую безопасность в любых гражданских сделках.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="service-card p-12 aspect-square flex flex-col justify-between group cursor-pointer reveal-item">
+                        <div class="service-number">02</div>
+                        <div class="service-icon-wrapper w-16 h-16 border border-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500">
+                            <i data-lucide="briefcase" class="text-accent group-hover:text-primary w-8 h-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-serif font-bold mb-4 text-white group-hover:text-accent transition-colors duration-500">Трудовое <br>право</h3>
+                            <div class="h-px w-0 group-hover:w-full bg-accent transition-all duration-700"></div>
+                            <p class="text-gray-400 text-sm mt-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 font-light leading-relaxed">
+                                Решение споров об увольнении, невыплате зарплаты и дисциплинарных взысканиях. Защищаем интересы как работников, так и работодателей в правовом поле.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="service-card p-12 aspect-square flex flex-col justify-between group cursor-pointer reveal-item">
+                        <div class="service-number">03</div>
+                        <div class="service-icon-wrapper w-16 h-16 border border-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500">
+                            <i data-lucide="gavel" class="text-accent group-hover:text-primary w-8 h-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-serif font-bold mb-4 text-white group-hover:text-accent transition-colors duration-500">Судебное <br>производство</h3>
+                            <div class="h-px w-0 group-hover:w-full bg-accent transition-all duration-700"></div>
+                            <p class="text-gray-400 text-sm mt-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 font-light leading-relaxed">
+                                Представительство в судах общей юрисдикции на всех этапах. Подготовка исков, апелляций и профессиональная стратегия защиты ваших интересов в зале суда.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Service Card 4 -->
+                    <div class="service-card p-12 aspect-square flex flex-col justify-between group cursor-pointer reveal-item">
+                        <div class="service-number">04</div>
+                        <div class="service-icon-wrapper w-16 h-16 border border-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500">
+                            <i data-lucide="building" class="text-accent group-hover:text-primary w-8 h-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-serif font-bold mb-4 text-white group-hover:text-accent transition-colors duration-500">Арбитраж</h3>
+                            <div class="h-px w-0 group-hover:w-full bg-accent transition-all duration-700"></div>
+                            <p class="text-gray-400 text-sm mt-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 font-light leading-relaxed">
+                                Эффективное разрешение коммерческих споров между юридическими лицами. Сопровождение процедур банкротства и защита активов вашего бизнеса.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Service Card 5 -->
+                    <div class="service-card p-12 aspect-square flex flex-col justify-between group cursor-pointer reveal-item">
+                        <div class="service-number">05</div>
+                        <div class="service-icon-wrapper w-16 h-16 border border-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500">
+                            <i data-lucide="map" class="text-accent group-hover:text-primary w-8 h-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-serif font-bold mb-4 text-white group-hover:text-accent transition-colors duration-500">Земельные <br>споры</h3>
+                            <div class="h-px w-0 group-hover:w-full bg-accent transition-all duration-700"></div>
+                            <p class="text-gray-400 text-sm mt-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 font-light leading-relaxed">
+                                Оформление прав собственности, изменение категории земель и межевание. Поможем решить конфликты с границами участков и государственными органами.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Service Card 6 -->
+                    <div class="service-card p-12 aspect-square flex flex-col justify-between group cursor-pointer reveal-item">
+                        <div class="service-number">06</div>
+                        <div class="service-icon-wrapper w-16 h-16 border border-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500">
+                            <i data-lucide="shield-alert" class="text-accent group-hover:text-primary w-8 h-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-serif font-bold mb-4 text-white group-hover:text-accent transition-colors duration-500">Уголовное <br>право</h3>
+                            <div class="h-px w-0 group-hover:w-full bg-accent transition-all duration-700"></div>
+                            <p class="text-gray-400 text-sm mt-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 font-light leading-relaxed">
+                                Квалифицированная защита на стадии следствия и в суде. Адвокатская поддержка 24/7, минимизация рисков и защита ваших конституционных прав.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Service Card 7 -->
+                    <div class="service-card p-12 aspect-square flex flex-col justify-between group cursor-pointer reveal-item">
+                        <div class="service-number">07</div>
+                        <div class="service-icon-wrapper w-16 h-16 border border-accent/20 flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-500">
+                            <i data-lucide="heart" class="text-accent group-hover:text-primary w-8 h-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-3xl font-serif font-bold mb-4 text-white group-hover:text-accent transition-colors duration-500">Семейное <br>право</h3>
+                            <div class="h-px w-0 group-hover:w-full bg-accent transition-all duration-700"></div>
+                            <p class="text-gray-400 text-sm mt-4 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 font-light leading-relaxed">
+                                Расторжение брака, раздел имущества, взыскание алиментов и определение места жительства детей. Решаем деликатные вопросы с максимальным тактом.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process & Contact -->
+        <section id="contact" class="py-32 px-12 relative overflow-hidden">
+            <div class="container mx-auto">
+                <div class="grid lg:grid-cols-2 gap-32">
+                    <div>
+                        <div class="section-tag">Контакты</div>
+                        <h2 class="text-5xl md:text-7xl font-serif font-bold mb-16">Свяжитесь <br><span class="italic gold-gradient-text">с нами</span></h2>
+                        
+                        <div class="space-y-12">
+                            <div class="reveal-item">
+                                <h4 class="text-accent uppercase tracking-widest text-[10px] font-bold mb-4">Телефон</h4>
+                                <a href="tel:89206629031" class="text-3xl font-serif hover:text-accent transition-colors">8(920) 6629031</a>
+                            </div>
+                            <div class="reveal-item">
+                                <h4 class="text-accent uppercase tracking-widest text-[10px] font-bold mb-4">Email</h4>
+                                <a href="mailto:Zakon3000@bk.ru" class="text-3xl font-serif hover:text-accent transition-colors">Zakon3000@bk.ru</a>
+                            </div>
+                            <div class="reveal-item">
+                                <p class="text-xl text-gray-400 italic leading-relaxed">
+                                    "Запишитесь на консультацию – это первый шаг к решению вашей юридической проблемы. Закон радует тех, кто с нами!"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-12 md:p-20 rounded-[40px] border border-accent/20">
+                        <div class="section-tag">Свяжитесь с нами</div>
+                        <h2 class="text-4xl md:text-6xl font-serif font-bold mb-4">Оставить заявку</h2>
+                        <p class="text-gray-400 mb-12 font-light">Заполните форму, и мы свяжемся с вами в течение 15 минут для обсуждения вашего вопроса.</p>
+                        
+                        <form id="premium-form" class="space-y-12">
+                            <div class="grid md:grid-cols-2 gap-12">
+                                <div class="relative group">
+                                    <input type="text" id="form-name" placeholder="Ваше имя" class="premium-input" required>
+                                </div>
+                                <div class="relative group">
+                                    <input type="tel" id="form-phone" placeholder="Контактный телефон" class="premium-input" required>
+                                </div>
+                            </div>
+                            <div class="relative group">
+                                <input type="email" id="form-email" placeholder="Электронная почта" class="premium-input" required>
+                            </div>
+                            <div class="relative group">
+                                <textarea id="form-message" placeholder="Опишите кратко вашу ситуацию" rows="3" class="premium-input" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-premium w-full justify-center group">
+                                <span>Отправить заявку</span>
+                                <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-2 transition-transform"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-20 px-12 border-t border-white/5 bg-primary relative z-10">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-4 gap-20 mb-20">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="w-12 h-12 border border-accent/30 flex items-center justify-center">
+                            <i data-lucide="shield" class="text-accent w-6 h-6"></i>
+                        </div>
+                        <span class="text-2xl font-serif font-bold tracking-widest uppercase text-white">Личный юрист</span>
+                    </div>
+                    <p class="text-gray-500 max-w-sm leading-relaxed">
+                        Ваш надежный партнер в мире юридических услуг. Мы делаем правосудие доступным и понятным.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="text-accent font-bold uppercase tracking-widest text-[10px] mb-8">Меню</h5>
+                    <ul class="space-y-4 text-gray-500 text-sm">
+                        <li><a href="#about" class="hover:text-white transition-colors">Главная</a></li>
+                        <li><a href="#news" class="hover:text-white transition-colors">Новости</a></li>
+                        <li><a href="#cases" class="hover:text-white transition-colors">Кейсы</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Услуги</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-accent font-bold uppercase tracking-widest text-[10px] mb-8">Контакты</h5>
+                    <ul class="space-y-4 text-gray-500 text-sm">
+                        <li>Zakon3000@bk.ru</li>
+                        <li>8(920) 6629031</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+                <p class="text-[10px] uppercase tracking-[0.3em] text-gray-600 font-bold">© 2026 ЛИЧНЫЙ ЮРИСТ. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lucide Icons
+        lucide.createIcons();
+
+        // Smooth Scroll (Lenis)
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Mobile Menu Toggle
+        const burgerBtn = document.getElementById('burger-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const burgerLines = document.querySelectorAll('.burger-line');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            if (mobileMenu.classList.contains('active')) {
+                burgerLines[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                burgerLines[1].style.opacity = '0';
+                burgerLines[2].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+                document.body.style.overflow = 'hidden';
+            } else {
+                burgerLines[0].style.transform = 'none';
+                burgerLines[1].style.opacity = '1';
+                burgerLines[2].style.transform = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        burgerBtn.addEventListener('click', toggleMobileMenu);
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMobileMenu();
+            });
+        });
+
+        // Integrate Lenis with ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        // Mouse follow effect for service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--mouse-x', `${x}%`);
+                card.style.setProperty('--mouse-y', `${y}%`);
+            });
+        });
+
+        // GSAP Loader & Hero Animations
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+            
+            tl.to('.loader-bar', { width: '100%', duration: 0.3, ease: 'power2.inOut' });
+            tl.to('.loader-text span', { y: 0, duration: 0.3, ease: 'power4.out' }, "-=0.1");
+            tl.to('#loader', { 
+                yPercent: -100, 
+                duration: 0.5, 
+                ease: 'power4.inOut', 
+                delay: 0.05,
+                onComplete: () => {
+                    document.getElementById('loader').style.display = 'none';
+                }
+            });
+            
+            tl.from('.hero-title', { 
+                y: 100, 
+                opacity: 0, 
+                duration: 1.5, 
+                ease: 'power4.out' 
+            }, "-=0.5");
+
+            tl.from('.hero-tag', { 
+                x: -50, 
+                opacity: 0, 
+                duration: 1.2, 
+                ease: 'power3.out' 
+            }, "-=1.2");
+
+            tl.from('#about .reveal-item', { 
+                y: 30, 
+                opacity: 0, 
+                duration: 0.8, 
+                stagger: 0.1, 
+                ease: 'power3.out' 
+            }, "-=0.8");
+        });
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Form Submit
+        document.getElementById('premium-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const phone = document.getElementById('form-phone').value;
+            const email = document.getElementById('form-email').value;
+            const message = document.getElementById('form-message').value;
+
+            const mailtoLink = `mailto:Legalstudies@yandex.ru?subject=Новая заявка от ${name}&body=Имя: ${name}%0D%0AТелефон: ${phone}%0D%0AEmail: ${email}%0D%0AСообщение: ${message}`;
+            
+            window.location.href = mailtoLink;
+            
+            alert('Спасибо за вашу заявку! Ваш почтовый клиент был открыт для отправки сообщения на Legalstudies@yandex.ru. Мы свяжемся с вами в ближайшее время.');
+        });
+    </script>
+</body>
+</html>
