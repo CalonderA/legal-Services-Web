@@ -50,7 +50,7 @@
             color: #ffffff;
             overflow-x: hidden;
             font-family: 'Montserrat', sans-serif;
-            font-size: 18px; /* Увеличил базовый шрифт */
+            font-size: 16px; /* Сделал чуть меньше, как было раньше */
             line-height: 1.6;
         }
 
@@ -59,8 +59,8 @@
             display: flex;
             align-items: center;
             position: relative;
-            padding-top: 100px;
-            padding-bottom: 100px;
+            padding-top: 80px;
+            padding-bottom: 80px;
         }
 
         /* Premium Header */
@@ -71,11 +71,11 @@
             width: 100%;
             z-index: 100;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 2.5rem 4rem; /* Чуть больше отступы */
+            padding: 2rem 3rem; /* Вернул стандартные отступы */
         }
 
         header.scrolled {
-            padding: 1.25rem 4rem;
+            padding: 1rem 3rem;
             background: rgba(13, 13, 13, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(197, 163, 103, 0.1);
@@ -155,12 +155,12 @@
                 padding-bottom: 80px;
             }
             .hero-title {
-                font-size: clamp(2.2rem, 10vw, 3.5rem);
+                font-size: clamp(2rem, 9vw, 3rem);
                 line-height: 1.1;
                 text-align: center;
             }
             h2 {
-                font-size: clamp(1.8rem, 8vw, 2.8rem) !important;
+                font-size: clamp(1.7rem, 7.5vw, 2.5rem) !important;
                 line-height: 1.1 !important;
                 word-wrap: break-word;
                 overflow-wrap: break-word;
@@ -171,7 +171,7 @@
             .hero-tag {
                 justify-content: center;
                 text-align: center;
-                font-size: 0.65rem;
+                font-size: 0.6rem;
                 line-height: 1.4;
             }
             .hero-tag::before {
@@ -185,7 +185,7 @@
             #contact .grid {
                 display: flex;
                 flex-direction: column;
-                gap: 3rem;
+                gap: 2.5rem;
             }
             #contact .space-y-12 {
                 display: flex;
@@ -197,19 +197,19 @@
             }
             .section-tag {
                 justify-content: center;
-                font-size: 0.7rem;
+                font-size: 0.65rem;
             }
             .service-card {
                 aspect-ratio: auto;
                 min-height: auto;
-                padding: 2.5rem 1.5rem;
+                padding: 2.5rem 1.2rem;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
             }
             .service-card h3 {
-                font-size: clamp(1.5rem, 7vw, 2rem);
+                font-size: clamp(1.4rem, 6.5vw, 1.8rem);
                 margin-top: 1.5rem;
                 margin-bottom: 1rem;
                 line-height: 1.2;
@@ -218,11 +218,11 @@
                 opacity: 1;
                 transform: none;
                 margin-top: 1rem;
-                font-size: 0.95rem;
+                font-size: 0.9rem;
                 color: rgba(255, 255, 255, 0.8);
             }
             p {
-                font-size: 1rem !important;
+                font-size: 0.95rem !important;
                 color: rgba(255, 255, 255, 0.7) !important;
                 text-align: center;
             }
@@ -237,6 +237,17 @@
             .service-icon-wrapper {
                 margin: 0 auto;
             }
+            .premium-input {
+                padding: 0.8rem 0.5rem;
+                font-size: 0.9rem;
+            }
+            .btn-premium {
+                padding: 1rem 2rem;
+                font-size: 0.7rem;
+            }
+            #contact .glass-panel {
+                padding: 2rem 1.5rem !important;
+            }
             br {
                 display: none;
             }
@@ -247,12 +258,13 @@
                 display: none;
             }
             .grid {
-                gap: 2rem;
+                gap: 1.5rem;
             }
+        }
         }
 
         .nav-link {
-            font-size: 0.9rem; /* Крупнее ссылки */
+            font-size: 0.8rem; /* Умеренный размер */
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.15em;
@@ -353,8 +365,8 @@
         /* Hero Typography */
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(4rem, 10vw, 8.5rem); /* Еще крупнее для ПК */
-            line-height: 1.05;
+            font-size: clamp(3.5rem, 8vw, 6.5rem); /* Оптимальный размер */
+            line-height: 1.1;
             font-weight: 700;
             letter-spacing: -0.02em;
         }
@@ -365,12 +377,12 @@
         }
 
         .hero-tag {
-            font-size: 0.85rem; /* Крупнее тег */
+            font-size: 0.75rem; /* Умеренный тег */
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.4em;
             color: #C5A367;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
             gap: 1.5rem;
@@ -378,7 +390,7 @@
 
         .hero-tag::before {
             content: '';
-            width: 60px; /* Длиннее линия */
+            width: 40px;
             height: 1px;
             background: #C5A367;
         }
