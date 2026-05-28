@@ -615,12 +615,15 @@
 
     <!-- Mobile Menu -->
     <div id="mobile-menu">
+        <div class="absolute top-8 right-8 cursor-pointer w-12 h-12 flex items-center justify-center bg-white/5 rounded-full border border-white/10" onclick="toggleMobileMenu()">
+            <i data-lucide="x" class="text-white w-6 h-6"></i>
+        </div>
         <a href="#about" class="mobile-nav-link">главная</a>
         <a href="#news" class="mobile-nav-link">новости</a>
         <a href="#cases" class="mobile-nav-link">кейсы</a>
         <a href="#services" class="mobile-nav-link">услуги</a>
         <a href="#contact" class="mobile-nav-link">контакты</a>
-        <button class="btn-premium mt-8" onclick="toggleMobileMenu(); document.getElementById('contact').scrollIntoView()">
+        <button class="btn-premium mt-8" style="width: auto; padding: 1.2rem 3rem;" onclick="toggleMobileMenu(); document.getElementById('contact').scrollIntoView()">
             Оставить заявку
         </button>
     </div>
