@@ -42,7 +42,6 @@
         [x-cloak] { display: none !important; }
         
         html {
-            scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
         }
 
@@ -56,12 +55,12 @@
         }
 
         section {
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
             min-height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
+            padding-top: 100px;
+            padding-bottom: 100px;
         }
 
         /* Premium Header */
@@ -147,6 +146,14 @@
             .burger-btn {
                 display: flex;
             }
+            section {
+                padding-left: 1.2rem;
+                padding-right: 1.2rem;
+                text-align: center;
+                min-height: auto; /* Allow sections to shrink/grow */
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
             .hero-title {
                 font-size: clamp(2.2rem, 10vw, 3.5rem);
                 line-height: 1.1;
@@ -159,6 +166,7 @@
                 overflow-wrap: break-word;
                 hyphens: manual;
                 letter-spacing: -0.01em;
+                text-align: center;
             }
             .hero-tag {
                 justify-content: center;
@@ -169,12 +177,22 @@
             .hero-tag::before {
                 display: none;
             }
-            #about .flex-col {
+            #about .flex-col, #about .container {
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+            }
+            #contact .grid {
+                display: flex;
+                flex-direction: column;
+                gap: 3rem;
+            }
+            #contact .space-y-12 {
+                display: flex;
+                flex-direction: column;
                 align-items: center;
             }
-            section {
-                padding-left: 1.2rem;
-                padding-right: 1.2rem;
+            #contact .reveal-item {
                 text-align: center;
             }
             .section-tag {
@@ -206,6 +224,7 @@
             p {
                 font-size: 1rem !important;
                 color: rgba(255, 255, 255, 0.7) !important;
+                text-align: center;
             }
             .service-card .h-px {
                 width: 60px;
@@ -229,9 +248,6 @@
             }
             .grid {
                 gap: 2rem;
-            }
-            #contact .grid {
-                gap: 4rem;
             }
         }
 
@@ -521,7 +537,7 @@
         <!-- Hero Section -->
         <section id="about" class="min-h-screen flex items-center px-12 relative overflow-hidden">
             <div class="absolute inset-0 z-0 opacity-20">
-                <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200" alt="Legal background" class="w-full h-full object-cover">
+                <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200" alt="Legal background" class="w-full h-full object-cover" loading="eager">
             </div>
             <div class="container mx-auto relative">
                 <div class="max-w-5xl relative z-20">
