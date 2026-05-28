@@ -961,6 +961,49 @@
         });
 
         // Form Submit
+        const phoneInput = document.getElementById('form-phone');
+
+        phoneInput.addEventListener('input', (e) => {
+            let input = e.target.value.replace(/\D/g, '');
+            let formattedValue = '';
+
+            if (!input) {
+                e.target.value = '';
+                return;
+            }
+
+            if (['7', '8', '9'].indexOf(input[0]) > -1) {
+                // Russian phone format
+                if (input[0] === '9') input = '8' + input;
+                let firstChar = '8';
+                formattedValue = firstChar + '(';
+                
+                if (input.length > 1) {
+                    formattedValue += input.substring(1, 4);
+                }
+                if (input.length >= 5) {
+                    formattedValue += ')' + input.substring(4, 7);
+                }
+                if (input.length >= 8) {
+                    formattedValue += '-' + input.substring(7, 9);
+                }
+                if (input.length >= 10) {
+                    formattedValue += '-' + input.substring(9, 11);
+                }
+            } else {
+                // International or other format
+                formattedValue = '+' + input.substring(0, 16);
+            }
+
+            e.target.value = formattedValue;
+        });
+
+        phoneInput.addEventListener('keydown', (e) => {
+            if (e.keyCode === 8 && e.target.value.replace(/\D/g, '').length === 1) {
+                e.target.value = '';
+            }
+        });
+
         document.getElementById('premium-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('form-name').value;
