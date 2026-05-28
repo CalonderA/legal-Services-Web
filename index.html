@@ -974,15 +974,15 @@
 
             if (['7', '8', '9'].indexOf(input[0]) > -1) {
                 // Russian phone format
-                if (input[0] === '9') input = '8' + input;
-                let firstChar = '8';
-                formattedValue = firstChar + '(';
+                if (input[0] === '9') input = '7' + input;
+                let firstChar = '+7';
+                formattedValue = firstChar + ' (';
                 
                 if (input.length > 1) {
                     formattedValue += input.substring(1, 4);
                 }
                 if (input.length >= 5) {
-                    formattedValue += ')' + input.substring(4, 7);
+                    formattedValue += ') ' + input.substring(4, 7);
                 }
                 if (input.length >= 8) {
                     formattedValue += '-' + input.substring(7, 9);
