@@ -912,7 +912,10 @@
         });
 
         // GSAP Loader & Hero Animations
-        window.addEventListener('load', () => {
+        const startAnimations = () => {
+            if (window.animationsStarted) return;
+            window.animationsStarted = true;
+
             const tl = gsap.timeline();
             
             tl.to('.loader-bar', { width: '100%', duration: 0.3, ease: 'power2.inOut' });
@@ -948,6 +951,14 @@
                 stagger: 0.1, 
                 ease: 'power3.out' 
             }, "-=0.8");
+        };
+
+        // Fallback: start animations anyway after 3 seconds if window.load hasn't fired
+        const loaderTimeout = setTimeout(startAnimations, 3000);
+
+        window.addEventListener('load', () => {
+            clearTimeout(loaderTimeout);
+            startAnimations();
         });
 
         // Header Scroll Effect
